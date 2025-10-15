@@ -1,0 +1,95 @@
+package RealTime;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class FlipKart {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		WebDriver driver=new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		driver.get("https://www.flipkart.com/");
+		driver.manage().window().maximize();
+		
+		// Locate Flipkart logo using XPath
+        WebElement logo = driver.findElement(By.xpath("//img[@title='Flipkart']"));
+
+        // Check if logo is displayed
+        if (logo.isDisplayed()) {
+            System.out.println("Flipkart logo is visible on the page!");
+        } else {
+            System.out.println("Logo not found!");
+        }
+        
+        //Print the logo title
+        System.out.println("Page title: " + driver.getTitle());
+        
+        Thread.sleep(3000);
+        // Locate the Login / My Account menu container
+        WebElement loginMenu = driver.findElement(By.xpath("//div[@class='H6-NpN _3N4_BX']"));
+
+        // Create Actions object
+        Actions actions = new Actions(driver);
+
+        // Perform mouseover
+        actions.moveToElement(loginMenu).perform();
+        
+        //Try to click on myprofile (Hover over Login menu)
+        WebElement mypro=driver.findElement(By.xpath("//li[normalize-space()='My Profile']"));
+        mypro.click();
+        
+        Thread.sleep(3000);
+        //back to homepage
+        driver.navigate().back();
+        
+        //Perform Search
+        WebElement search=driver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']"));
+		search.sendKeys("Mac");
+		
+		//By Using Keyboard click enter
+		actions.keyDown(Keys.ENTER).keyUp(Keys.ENTER).perform();
+		
+		// Check Box [Select last two checkboxes]
+		// total no of checkboxes - how many checkboxes want to select = Starting index
+		// Example: 3 - 2 = 1 (index starts from 0)
+
+		driver.findElement(By.xpath("//body/div[@id='container']/div/div[@class='nt6sNV JxFEK3 _48O0EI']/div[@class='DOjaWF YJG4Cf']/div[@class='DOjaWF gdgoEp col-2-12']/div[@class='DOjaWF gdgoEp col-12-12']/div[@class='cPHDOP col-12-12']/div[@class='_0BvurA']/section[5]/div[1]"));
+
+		// Locate all checkboxes under section[5]
+		List<WebElement> checkboxes = driver.findElements(By.xpath("//section[5]//input[@type='checkbox']"));
+
+		System.out.println("Total checkboxes: " + checkboxes.size());
+
+		// Calculate starting index to select last 2 checkboxes
+		int startIndex = checkboxes.size() - 2;
+
+		// JavaScript executor to click elements safely
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		for (int i = startIndex; i < checkboxes.size(); i++) {
+		    WebElement checkbox = checkboxes.get(i);
+
+		    // Scroll into view (ensures it's visible)
+		    js.executeScript("arguments[0].scrollIntoView(true);", checkbox);
+
+		    // Small wait (optional but helps stability)
+		    Thread.sleep(500);
+
+		    // Click checkbox using JS
+		    js.executeScript("arguments[0].click();", checkbox);
+
+		    System.out.println("Clicked checkbox #" + (i + 1));
+		}
+	}
+
+}
