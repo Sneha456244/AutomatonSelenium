@@ -61,7 +61,43 @@ public class OrangeHRMTest {
         page.clickJobTitle();
     }
     
+    @Test(priority = 7)
+    public void TC_UI_07_ClickAdd() {
+        System.out.println("Expected: Add should be clickable");
+        page.clickAdd();
+    }
     
+    @Test(priority = 8)
+    public void TC_UI_08_SetJobTitle() {
+        System.out.println("Expected: set JobTitle ");
+        page.setJobTitle();
+    }
+    
+    @Test(priority = 9)
+    public void TC_UI_09_ClickSave() {
+        System.out.println("Expected: Save button should be clickable");
+        page.clickSave();
+    }
+    
+    @Test(priority = 10)
+    public void TC_UI_10_ClickEditIcon() {
+        System.out.println("Expected: Edit icon should be clickable and job title updated");
+        page.clickEditIcon();
+        page.UpdatedJobTitle();
+        page.clickSave();
+    }
+    
+    @Test(priority = 11)
+    public void TC_UI_11_ClickLeaveMenu() {
+        System.out.println("Expected: Leave menu should be clickable");
+        page.clickLeave();
+    }
+    
+    @Test(priority = 12)
+    public void TC_UI_12_ClickApply() {
+        System.out.println("Expected: Apply tag should be clickable");
+        page.clickApply();
+    }
 
     @AfterClass
     public void tearDown() {
