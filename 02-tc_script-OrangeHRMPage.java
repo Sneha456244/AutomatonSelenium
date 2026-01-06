@@ -14,14 +14,14 @@ public class OrangeHRMPage {
     WebDriver driver;
     WebDriverWait wait;
 
-    // ========= Constructor =========
+    // Constructor
     public OrangeHRMPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
 
-    // ========= Locators =========
+    // Locators 
     @FindBy(xpath = "//img[@alt='company-branding']")
     private WebElement logo;
 
@@ -42,8 +42,29 @@ public class OrangeHRMPage {
     
     @FindBy(xpath = "//a[normalize-space()='Job Titles']")
     private WebElement jobTitle;
-
-    // ========= Actions =========
+    
+    @FindBy(xpath = "//button[normalize-space()='Add']")
+    private WebElement clkAdd;
+    
+    @FindBy(xpath = "//label[text()='Job Title']/ancestor::div[contains(@class,'oxd-input-group')]//input")
+    private WebElement setJobTitle;
+    
+    @FindBy(xpath = "//button[normalize-space()='Save']")
+    private WebElement clkSave;
+    
+    @FindBy(xpath = "(//button[@type='button'])[8]")
+    private WebElement clkEditIcon;
+    
+    @FindBy(xpath = "//label[text()='Job Title']/ancestor::div[contains(@class,'oxd-input-group')]//input")
+    private WebElement UpdatedJobTitle;
+    
+    @FindBy(xpath = "//a[@class='oxd-main-menu-item active']")
+    private WebElement clkLeave;
+    
+    @FindBy(xpath = "//li[@class='oxd-topbar-body-nav-tab --visited']")
+    private WebElement clkApply;
+    
+    // Actions
 
     // Verify OrangeHRM logo
     public boolean isOrangeHRMDisplayed() {
@@ -80,12 +101,14 @@ public class OrangeHRMPage {
 
     // Click Admin menu
     public void clickAdmin() {
+    	wait.until(ExpectedConditions.visibilityOf(clkAdmin));
         wait.until(ExpectedConditions.elementToBeClickable(clkAdmin));
         clkAdmin.click(); 
      }
         
     // Click Job dropdown
     public void clickJob() {
+    	wait.until(ExpectedConditions.visibilityOf(jobDropdown));
         wait.until(ExpectedConditions.elementToBeClickable(jobDropdown));
         jobDropdown.click();
     }
@@ -97,5 +120,52 @@ public class OrangeHRMPage {
         jobTitle.click();
     }
     
+    //Click ADD button
+    public void clickAdd() {
+    	wait.until(ExpectedConditions.visibilityOf(clkAdd));
+        wait.until(ExpectedConditions.elementToBeClickable(clkAdd));
+        clkAdd.click();
+    }
     
+    //Set JobTitle
+    public void setJobTitle() {
+    	wait.until(ExpectedConditions.visibilityOf(setJobTitle));
+        wait.until(ExpectedConditions.elementToBeClickable(setJobTitle));
+        setJobTitle.sendKeys("QA");
+    }
+    
+    //Click ADD button
+    public void clickSave() {
+    	wait.until(ExpectedConditions.visibilityOf(clkSave));
+        wait.until(ExpectedConditions.elementToBeClickable(clkSave));
+        clkSave.click();
+    }
+    
+    //Click Edit Icon 
+    public void clickEditIcon() {
+    	wait.until(ExpectedConditions.visibilityOf(clkEditIcon));
+        wait.until(ExpectedConditions.elementToBeClickable(clkEditIcon));
+        clkEditIcon.click();
+    }
+    
+    //Set JobTitle
+    public void UpdatedJobTitle() {
+    	wait.until(ExpectedConditions.visibilityOf(UpdatedJobTitle));
+        wait.until(ExpectedConditions.elementToBeClickable(UpdatedJobTitle));
+        UpdatedJobTitle.sendKeys("QA001");
+    }
+    
+    // Click Leave menu
+    public void clickLeave() {
+    	wait.until(ExpectedConditions.visibilityOf(clkLeave));
+        wait.until(ExpectedConditions.elementToBeClickable(clkLeave));
+        clkLeave.click(); 
+     }
+    
+    // Click Apply button
+    public void clickApply() {
+    	wait.until(ExpectedConditions.visibilityOf(clkApply));
+        wait.until(ExpectedConditions.elementToBeClickable(clkApply));
+        clkApply.click(); 
+     }
 }
